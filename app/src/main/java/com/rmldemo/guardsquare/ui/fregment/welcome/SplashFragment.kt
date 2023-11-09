@@ -15,6 +15,7 @@ import com.rmldemo.guardsquare.ui.activity.WelcomeActivity
 import com.rmldemo.guardsquare.utils.Topics.appComponent
 import com.dolatkia.animatedThemeManager.AppTheme
 import com.dolatkia.animatedThemeManager.ThemeFragment
+import com.rmldemo.guardsquare.security.SecurityApp
 import javax.inject.Inject
 
 class SplashFragment : ThemeFragment() {
@@ -35,6 +36,7 @@ class SplashFragment : ThemeFragment() {
         val user = sPref.getBoolean("isUserRegistered", false)
         val handler = Handler(Looper.getMainLooper())
         val runnable = Runnable {
+            activity?.let { SecurityApp.notification(it.applicationContext) }
             if (!user) {
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container_welcome, OnBoardingFragment())

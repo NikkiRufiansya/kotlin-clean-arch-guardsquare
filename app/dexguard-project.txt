@@ -1,0 +1,26 @@
+-verbose
+-dontwarn
+#-addconfigurationdebugging
+
+#-raspchecks apptamper
+#-raspchecks filetamper
+#-raspchecks hook
+-raspchecks emulator
+#-raspchecks root
+-raspcontinueon *
+
+-raspcallback emulator class com.rmldemo.guardsquare.security.SecurityApp {
+    public static void emulator(long);
+}
+
+
+-encryptclasses class com.rmldemo.guardsquare.ui.fregment.home.HomeViewModel
+-keepclassmembers class com.rmldemo.guardsquare.data.models.news_by_category.News {
+    <fields>;
+}
+-keepclassmembers class com.rmldemo.guardsquare.data.models.news_by_category.Meta {
+    <fields>;
+}
+-keepclassmembers class com.rmldemo.guardsquare.data.models.news_by_category.NewsByCategory {
+    <fields>;
+}

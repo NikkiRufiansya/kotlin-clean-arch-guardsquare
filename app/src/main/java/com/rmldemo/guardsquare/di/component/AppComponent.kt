@@ -2,6 +2,7 @@ package com.rmldemo.guardsquare.di.component
 
 import com.rmldemo.guardsquare.di.module.DatabaseModule
 import com.rmldemo.guardsquare.di.module.NetworkModule
+import com.rmldemo.guardsquare.security.SecurityApp
 import com.rmldemo.guardsquare.ui.fregment.article.ArticleFragment
 import com.rmldemo.guardsquare.ui.fregment.bookmark.BookmarkFragment
 import com.rmldemo.guardsquare.ui.fregment.category.CategoryFragment
@@ -35,6 +36,8 @@ interface AppComponent {
     fun inject(categoryFragment: CategoryFragment)
 
     fun inject(profileFragment: ProfileFragment)
+
+
 
 
 }
