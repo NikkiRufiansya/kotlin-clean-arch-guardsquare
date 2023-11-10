@@ -45,8 +45,10 @@ platform :android do
     release = firebase_app_distribution(
       app: "1:954269003292:android:b4099e7352481e8e6239d9",
       firebase_cli_token: "1//0gt-XjFucD2qDCgYIARAAGBASNwF-L9IrXg1q10HqDfGeWS5J2f7NzFyYWHwvmBuy46cS1xFiClbPJ_pDzCYoKjxiXEZs6kytMDI",
-      android_artifact_type: "APK",
-      release_notes: "test"
+      # android_artifact_type: "APK",
+      release_notes: "test",
+      testers: "nikkirufiansya2@gmail.com, nikkirufiansya88@gmail.com,rizkyprad.putra@gmail.com,technicalrml2023@gmail.com"
     )
+    # increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
   end
 end

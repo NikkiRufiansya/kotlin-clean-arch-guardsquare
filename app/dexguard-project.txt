@@ -24,3 +24,8 @@
 -keepclassmembers class com.rmldemo.guardsquare.data.models.news_by_category.NewsByCategory {
     <fields>;
 }
+
+
+
+
+
