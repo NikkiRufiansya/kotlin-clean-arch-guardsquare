@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id("dexguard")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -100,10 +101,13 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycle_version")
     kapt "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.5.0"
 
+    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+//    implementation("com.google.firebase:firebase-analytics")
+
 }
 
 dexguard {
-    path = "/Users/rmltech/Documents/GuardSqurare/DexGuard-9.4.20"
+    path = "/Users/rmltech/Documents/GuardSquare/DexGuard/Versi/DexGuard-9.4.20"
     license = "../app/dexguard-license.txt"
     configurations {
         register("release") {
