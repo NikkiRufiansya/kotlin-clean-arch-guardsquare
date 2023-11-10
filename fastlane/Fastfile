@@ -65,9 +65,12 @@ platform :android do
     release = firebase_app_distribution(
       app: "1:954269003292:android:b4099e7352481e8e6239d9",
       firebase_cli_token: "1//0gt-XjFucD2qDCgYIARAAGBASNwF-L9IrXg1q10HqDfGeWS5J2f7NzFyYWHwvmBuy46cS1xFiClbPJ_pDzCYoKjxiXEZs6kytMDI",
-      testers: "nikkirufiansya2@gmail.com, nikkirufiansya88@gmail.com,rizkyprad.putra@gmail.com,technicalrml2023@gmail.com"
+      testers: "nikkirufiansya2@rml.co.id, technicalrml2023@gmail.com"
     )
-    
+
+    gradle(
+    task: 'clean'
+    )
   end
 end
 
