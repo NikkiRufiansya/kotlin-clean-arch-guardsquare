@@ -1,0 +1,17 @@
+{
+  "status": "success",
+  "data": [
+    {
+      "title": "Dota 2",
+      "genre": "Strategy",
+      "images": "https://seeklogo.com/images/D/dota-2-logo-556BDCC022-seeklogo.com.png",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"
+    },
+    {
+      "title": "Ragnarok",
+      "genre": "Role Playing Game",
+      "images": "https://image.api.playstation.com/vulcan/ap/rnd/202207/1210/4xJ8XB3bi888QTLZYdl7Oi0s.png",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"
+    }
+  ]
+}

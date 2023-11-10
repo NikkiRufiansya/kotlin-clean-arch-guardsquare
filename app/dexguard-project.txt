@@ -2,16 +2,35 @@
 -dontwarn
 #-addconfigurationdebugging
 
-#-raspchecks apptamper
-#-raspchecks filetamper
-#-raspchecks hook
+-raspchecks apptamper
+-raspchecks filetamper
+-raspchecks hook
 -raspchecks emulator
-#-raspchecks root
+-raspchecks root
 -raspcontinueon *
+
+-raspfiletamperlist assets/games.json
 
 -raspcallback emulator class com.rmldemo.guardsquare.security.SecurityApp {
     public static void emulator(long);
 }
+
+-raspcallback root class com.rmldemo.guardsquare.security.SecurityApp {
+    public static void root(long);
+}
+
+-raspcallback hook class com.rmldemo.guardsquare.security.SecurityApp {
+    public static void hook(long);
+}
+
+-raspcallback apptamper class com.rmldemo.guardsquare.security.SecurityApp {
+    public static void apptamper(long);
+}
+
+#-raspcallback filetamper class com.rmldemo.guardsquare.security.SecurityApp {
+#    public static void filetamper(long);
+#}
+
 
 
 -encryptclasses class com.rmldemo.guardsquare.ui.fregment.home.HomeViewModel
