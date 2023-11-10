@@ -39,13 +39,13 @@ Submit a new Beta Build to Crashlytics Beta
 
 Deploy a new version to the Google Play
 
-### android releaseapps
+### android increment_version
 
 ```sh
-[bundle exec] fastlane android releaseapps
+[bundle exec] fastlane android increment_version
 ```
 
-Build Release Application With DexGuard
+
 
 ----
 
