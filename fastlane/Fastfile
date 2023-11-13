@@ -51,11 +51,18 @@ platform :android do
   #   increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
   # end
 
-  lane :increment_version do
+  lane :releaseapp do
+    gradle(
+      task: "clean",
+      project_dir: "/Users/rmltech/AndroidStudioProjects/rml-demo-apps"
+    )
     gradle(
       task: 'assemble',
-      build_type: 'Release'
+      build_type: 'Release',
     )
+    APK_LOCATION = "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
+    sh("cp #{APK_LOCATION} /Users/rmltech/Documents/Appknox/Fastlane-App")
+
     latest_release = firebase_app_distribution_get_latest_release(
       app: "1:954269003292:android:b4099e7352481e8e6239d9",
       firebase_cli_token: "1//0gt-XjFucD2qDCgYIARAAGBASNwF-L9IrXg1q10HqDfGeWS5J2f7NzFyYWHwvmBuy46cS1xFiClbPJ_pDzCYoKjxiXEZs6kytMDI"
@@ -65,11 +72,14 @@ platform :android do
     release = firebase_app_distribution(
       app: "1:954269003292:android:b4099e7352481e8e6239d9",
       firebase_cli_token: "1//0gt-XjFucD2qDCgYIARAAGBASNwF-L9IrXg1q10HqDfGeWS5J2f7NzFyYWHwvmBuy46cS1xFiClbPJ_pDzCYoKjxiXEZs6kytMDI",
-      testers: "nikkirufiansya2@rml.co.id, technicalrml2023@gmail.com"
+      testers: "nikkirufiansya2@gmail.com, technicalrml2023@gmail.com",
+#       release_notes: "Test DexGuard 9.4.21 10 November 2023"
     )
 
-    gradle(
-    task: 'clean'
+    slack(
+        message: "App successfully uploaded to Firebase App Distribution",
+        success: true,
+        slack_url: "https://hooks.slack.com/services/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",
     )
   end
 end

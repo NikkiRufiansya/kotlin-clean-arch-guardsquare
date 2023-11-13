@@ -36,6 +36,7 @@ import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@Suppress("UNREACHABLE_CODE")
 class HomeFragment : ThemeFragment() {
 
     private var _binding: FragmentHomeBinding? = null
@@ -145,6 +146,7 @@ class HomeFragment : ThemeFragment() {
                     .commit()
             }
         }
+
     }
 
     private fun setUI() {

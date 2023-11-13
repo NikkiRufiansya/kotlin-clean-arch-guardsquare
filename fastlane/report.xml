@@ -5,32 +5,42 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000192">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000406">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: assembleRelease" time="158.749351">
+      <testcase classname="fastlane.lanes" name="1: clean" time="2.804606">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: firebase_app_distribution_get_latest_release" time="0.95388">
+      <testcase classname="fastlane.lanes" name="2: assembleRelease" time="156.167462">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: increment_version_code" time="0.031362">
+      <testcase classname="fastlane.lanes" name="3: cp /Users/rmltech/AndroidStudioProjects/rml-demo-apps/app/build/outputs/apk/release/app-release-protected.apk /Users/rmltech/Documents/Appknox/Fastlane-App" time="0.01781">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: firebase_app_distribution" time="17.595578">
+      <testcase classname="fastlane.lanes" name="4: firebase_app_distribution_get_latest_release" time="1.838979">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: clean" time="1.536955">
+      <testcase classname="fastlane.lanes" name="5: increment_version_code" time="0.027117">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: firebase_app_distribution" time="17.068315">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="7: slack" time="0.827424">
         
       </testcase>
     

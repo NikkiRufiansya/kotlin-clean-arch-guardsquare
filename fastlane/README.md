@@ -39,10 +39,10 @@ Submit a new Beta Build to Crashlytics Beta
 
 Deploy a new version to the Google Play
 
-### android increment_version
+### android releaseapp
 
 ```sh
-[bundle exec] fastlane android increment_version
+[bundle exec] fastlane android releaseapp
 ```
 
 
