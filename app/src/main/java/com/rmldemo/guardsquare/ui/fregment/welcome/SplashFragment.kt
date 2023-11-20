@@ -36,20 +36,25 @@ class SplashFragment : ThemeFragment() {
         val user = sPref.getBoolean("isUserRegistered", false)
         val handler = Handler(Looper.getMainLooper())
         val runnable = Runnable {
-            activity?.let { SecurityApp.notification(it.applicationContext) }
+            context?.let { SecurityApp.notification(it) }
             if (!user) {
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container_welcome, OnBoardingFragment())
                     .commit()
             } else {
                 (activity as WelcomeActivity?)?.finish()
+
                 val intent =
                     Intent(binding.root.context.applicationContext, MainActivity::class.java)
                 startActivity(intent)
             }
+
+
+
+
         }
 
-        handler.postDelayed(runnable, 2000)
+        handler.postDelayed(runnable, 2500)
         return binding.root
     }
 

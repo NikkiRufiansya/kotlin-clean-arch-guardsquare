@@ -4,10 +4,12 @@ plugins {
     id 'kotlin-kapt'
     id("dexguard")
     id("com.google.gms.google-services")
-//    id("com.google.firebase.crashlytics")
+  //  id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
 
 }
+
+
 
 android {
     compileSdk 34
@@ -16,7 +18,7 @@ android {
         applicationId "com.rmldemo.guardsquare"
         minSdk 21
         targetSdk 34
-        versionCode 14
+        versionCode 37
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,22 +37,29 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release // Menggunakan signingConfig 'release' di sini
-
         }
+
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(17))
+        }
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     buildFeatures {
         viewBinding true
     }
     namespace 'com.rmldemo.guardsquare'
 }
+
+
 
 dependencies {
 
@@ -107,14 +116,18 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
 
-    //crash analytc
-//    implementation("com.google.firebase:firebase-crashlytics")
-//    implementation("com.google.firebase:firebase-analytics")
 
-    implementation("com.google.firebase:firebase-perf")
+
+    //firebase
+    implementation("com.google.firebase:firebase-perf:20.5.0")
+    //implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
 
 
 }
+
+
 
 dexguard {
     path = "/Users/rmltech/Documents/GuardSqurare/DexGuard-9.4.21"

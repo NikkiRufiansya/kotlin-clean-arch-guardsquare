@@ -1,86 +1,173 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
-#
-# For a list of all available actions, check out
-#
-#     https://docs.fastlane.tools/actions
-#
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
-
-# Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
-
 default_platform(:android)
 
 platform :android do
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
-  end
+#     Upload All
+    lane :releaseapp do
+        clean()
+            begin
+                buildapk()
+            rescue => exception
+                slackdexguarderror(exception)
+            end
+        copyapk()
+        uploadtofirebaseappdistribution()
+        appknoxaccesstoken()
+    end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :beta do
-    gradle(task: "clean assembleRelease")
-    crashlytics
+#     Upload Without Appknox
+    lane :releaseappwithoutuploadappknox do
+        clean()
+            begin
+                buildapk()
+            rescue => exception
+                 slackdexguarderror(exception)
+            end
+        uploadtofirebaseappdistribution()
+    end
 
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
-  end
+#     Clean Project
+    lane :clean do
+        gradle(
+          task: "clean",
+          project_dir: "/Users/rmltech/AndroidStudioProjects/rml-demo-apps"
+        )
+    end
 
-  desc "Deploy a new version to the Google Play"
-  lane :deploy do
-    gradle(task: "clean assembleRelease")
-    upload_to_play_store
-  end
+#     Build Application Release
+    lane :buildapk do
+        gradle(
+          task: 'assemble',
+          build_type: 'Release',
+        )
+        slackdexguardsuccess
+    end
 
-  # desc "Build Release Application With DexGuard"
-  # lane  :releaseapps do
-  #   gradle(
-  #     task: 'assemble',
-  #     build_type: 'Release'
-  #   )
-  #   # release = firebase_app_distribution(
-  #   latest_release = firebase_app_distribution_get_latest_release(
-  #     app: "1:954269003292:android:b4099e7352481e8e6239d9",
-  #     firebase_cli_token: "1//0gt-XjFucD2qDCgYIARAAGBASNwF-L9IrXg1q10HqDfGeWS5J2f7NzFyYWHwvmBuy46cS1xFiClbPJ_pDzCYoKjxiXEZs6kytMDI"
-  #     # testers: "nikkirufiansya2@gmail.com, nikkirufiansya88@gmail.com,rizkyprad.putra@gmail.com,technicalrml2023@gmail.com"
-  #   )
-  #   increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
-  # end
+#     Slack Notification For DexGuard Failed Build
+    def slackdexguarderror (exception)
+        slack(
+            message: "Lane failed with exception : #{exception}",
+            success: false,
+            slack_url: "https://hooks.slack.com/services/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",
+            payload: {
+                    "Built by" => "Jenkins",
+            },
+            default_payloads: [:test_result]
+       )
+    end
 
-  lane :releaseapp do
-    gradle(
-      task: "clean",
-      project_dir: "/Users/rmltech/AndroidStudioProjects/rml-demo-apps"
-    )
-    gradle(
-      task: 'assemble',
-      build_type: 'Release',
-    )
-    APK_LOCATION = "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
-    sh("cp #{APK_LOCATION} /Users/rmltech/Documents/Appknox/Fastlane-App")
+#     Slack Notification For DexGuard Success Build
+    def slackdexguardsuccess
+        slack(
+            message: "The application was successfully built and protected by DexGuard",
+            success: true,
+            slack_url: "https://hooks.slack.com/services/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",
+            payload: {
+                "Built by" => "Jenkins",
+            },
+            default_payloads: [:test_result]
+       )
+    end
 
-    latest_release = firebase_app_distribution_get_latest_release(
-      app: "1:954269003292:android:b4099e7352481e8e6239d9",
-      firebase_cli_token: "1//0gt-XjFucD2qDCgYIARAAGBASNwF-L9IrXg1q10HqDfGeWS5J2f7NzFyYWHwvmBuy46cS1xFiClbPJ_pDzCYoKjxiXEZs6kytMDI"
-    )
-    increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
+#     Copy Protected App for Upload to Appknox
+    lane :copyapk do
+        APK_LOCATION = "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}"
+        sh("cp #{APK_LOCATION} /Users/rmltech/Documents/Appknox/Fastlane-App")
+    end
 
-    release = firebase_app_distribution(
-      app: "1:954269003292:android:b4099e7352481e8e6239d9",
-      firebase_cli_token: "1//0gt-XjFucD2qDCgYIARAAGBASNwF-L9IrXg1q10HqDfGeWS5J2f7NzFyYWHwvmBuy46cS1xFiClbPJ_pDzCYoKjxiXEZs6kytMDI",
-      testers: "nikkirufiansya2@gmail.com, technicalrml2023@gmail.com",
-#       release_notes: "Test DexGuard 9.4.21 10 November 2023"
-    )
+#     Firebase App Distribution Get Latest Version Code
+    lane :increment_version do
+        latest_release = firebase_app_distribution_get_latest_release(
+          app: "1:954269003292:android:b4099e7352481e8e6239d9",
+          firebase_cli_token: "1//0gt-XjFucD2qDCgYIARAAGBASNwF-L9IrXg1q10HqDfGeWS5J2f7NzFyYWHwvmBuy46cS1xFiClbPJ_pDzCYoKjxiXEZs6kytMDI"
+        )
+        increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
+    end
 
-    slack(
-        message: "App successfully uploaded to Firebase App Distribution",
-        success: true,
-        slack_url: "https://hooks.slack.com/services/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",
-    )
-  end
-end
+#     Upload Application Protected to Firebase Distribution App
+    lane :uploadtofirebaseappdistribution do
+        increment_version()
+        release = firebase_app_distribution(
+              app: "1:954269003292:android:b4099e7352481e8e6239d9",
+              firebase_cli_token: "1//0gt-XjFucD2qDCgYIARAAGBASNwF-L9IrXg1q10HqDfGeWS5J2f7NzFyYWHwvmBuy46cS1xFiClbPJ_pDzCYoKjxiXEZs6kytMDI",
+              testers: "nikkirufiansya2@gmail.com, technicalrml2023@gmail.com",
+              release_notes: "App demo RML"
+        )
+        slackfirebasedistributionappsuccess()
+    end
 
+#     Slack Notification For Firebase App Distribution Success Upload
+    def slackfirebasedistributionappsuccess
+        slack(
+            message: "App successfully uploaded to Firebase App Distribution",
+            success: true,
+            slack_url: "https://hooks.slack.com/services/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",
+            default_payloads: [:test_result]
+        )
+    end
+
+#     Export Access Token Appknox
+    lane :appknoxaccesstoken do
+        sh("export APPKNOX_ACCESS_TOKEN=156e23bde8e3506cc5fd1bc8ae49b9d2a2d689ab")
+        appknoxwhoami()
+        uploadtoappknox()
+    end
+
+#     Get Credential Appknox
+    lane :appknoxwhoami do
+        sh("appknox whoami --access-token 156e23bde8e3506cc5fd1bc8ae49b9d2a2d689ab")
+    end
+
+#     Upload Protected App to Appknox
+    lane :uploadtoappknox do
+        begin
+            sh("appknox upload /Users/rmltech/Documents/Appknox/Fastlane-App/app-release-protected.apk | xargs appknox cicheck --risk-threshold critical")
+            slackappknoxsuccess()
+        rescue => exception
+            slackappknoxfailed(exception)
+        end
+    end
+
+#     Slack Notification For Appknox Success Upload
+    def slackappknoxsuccess
+        slack(
+            message: "The application successfully uploaded to Appknox",
+            success: true,
+            slack_url: "https://hooks.slack.com/services/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",
+            default_payloads: [:test_result]
+        )
+    end
+
+#     Slack Notification For Appknox Failed Upload
+    def slackappknoxfailed(exception)
+        slack(
+            message: "The application uploaded successfully but there are findings: : #{exception}",
+            success: false,
+            slack_url: "https://hooks.slack.com/services/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",
+            default_payloads: [:test_result]
+        )
+    end
+
+#     Upload Application to Firebase Test Lab
+#     lane :uploadtofirebasetestlab do
+#         firebase_test_lab_android(
+#             project_id: "rml-apps-vsxr",
+#             gcloud_service_key_file: "fastlane/rml-apps-vsxr-a5e8f78c8654.json",
+#             type: "robo",
+#             devices: [
+#                 {
+#                     model: "Galaxy Note9",
+#                     version: "29",
+#                     locale: "en_US",
+#                     orientation: "portrait"
+#                 },
+#                 {
+#                     model: "Pixel2",
+#                     version: "28"
+#                 }
+#             ],
+#             app_apk: "/Users/rmltech/Documents/Appknox/Fastlane-App/app-release-protected.apk",
+#             console_log_file_name: "fastlane/console_output.log",
+#             timeout: "3m",
+#         )
+#     end
+ end

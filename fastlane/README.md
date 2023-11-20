@@ -15,34 +15,82 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Android
 
-### android test
-
-```sh
-[bundle exec] fastlane android test
-```
-
-Runs all the tests
-
-### android beta
-
-```sh
-[bundle exec] fastlane android beta
-```
-
-Submit a new Beta Build to Crashlytics Beta
-
-### android deploy
-
-```sh
-[bundle exec] fastlane android deploy
-```
-
-Deploy a new version to the Google Play
-
 ### android releaseapp
 
 ```sh
 [bundle exec] fastlane android releaseapp
+```
+
+
+
+### android releaseappwithoutuploadappknox
+
+```sh
+[bundle exec] fastlane android releaseappwithoutuploadappknox
+```
+
+
+
+### android clean
+
+```sh
+[bundle exec] fastlane android clean
+```
+
+
+
+### android buildapk
+
+```sh
+[bundle exec] fastlane android buildapk
+```
+
+
+
+### android copyapk
+
+```sh
+[bundle exec] fastlane android copyapk
+```
+
+
+
+### android increment_version
+
+```sh
+[bundle exec] fastlane android increment_version
+```
+
+
+
+### android uploadtofirebaseappdistribution
+
+```sh
+[bundle exec] fastlane android uploadtofirebaseappdistribution
+```
+
+
+
+### android appknoxaccesstoken
+
+```sh
+[bundle exec] fastlane android appknoxaccesstoken
+```
+
+
+
+### android appknoxwhoami
+
+```sh
+[bundle exec] fastlane android appknoxwhoami
+```
+
+
+
+### android uploadtoappknox
+
+```sh
+[bundle exec] fastlane android uploadtoappknox
 ```
 
 

@@ -31,6 +31,8 @@ class OnBoardingFragment : Fragment() {
                 .replace(R.id.fragment_container_welcome, WelcomeFragment())
                 .addToBackStack("welcome")
                 .commit()
+
+
         }
 
         return binding.root

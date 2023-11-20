@@ -19,11 +19,17 @@ import com.rmldemo.guardsquare.utils.Topics.appComponent
 import com.dolatkia.animatedThemeManager.AppTheme
 import com.dolatkia.animatedThemeManager.ThemeActivity
 import com.dolatkia.animatedThemeManager.ThemeAnimationListener
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.analytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
+import com.rmldemo.guardsquare.security.SecurityApp
 
 class MainActivity : ThemeActivity(), MainView, ThemeAnimationListener {
 
     private lateinit var binding: ActivityMainBinding
     lateinit var sPref:SharedPreferences
+    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun getStartTheme(): AppTheme {
         sPref = applicationContext.getSharedPreferences("shared", MODE_PRIVATE)
@@ -45,10 +51,20 @@ class MainActivity : ThemeActivity(), MainView, ThemeAnimationListener {
         setContentView(binding.root)
         setThemeAnimationListener(this)
 
+        firebaseAnalytics()
+
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, HomeFragment())
             .commit()
         setUpBottomNav()
+
+
+    }
+
+    fun firebaseAnalytics(){
+        firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.appInstanceId
 
     }
 

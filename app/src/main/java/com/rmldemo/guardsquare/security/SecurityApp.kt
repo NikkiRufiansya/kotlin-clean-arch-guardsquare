@@ -1,25 +1,47 @@
 package com.rmldemo.guardsquare.security
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
+import com.rmldemo.guardsquare.ui.activity.WarningActivity
+import java.lang.RuntimeException
+import kotlin.math.acos
+
 
 class SecurityApp {
-
 
     companion object {
 
         var detection: Boolean = false
         var pesan = ""
         val TAG = "SecurityApp"
+        lateinit var firebaseCrashlytics : FirebaseCrashlytics
 
         @JvmStatic
-        fun notification(context: Context) {
+        fun notification(activity: Context) {
             if (detection == true) {
-                Toast.makeText(context, pesan, Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, pesan, Toast.LENGTH_SHORT).show()
+                //activity.startActivity(Intent(activity, WarningActivity::class.java))
+                uploadCrashlog(pesan)
                 android.os.Process.killProcess(android.os.Process.myPid())
             }
         }
+
+        fun uploadCrashlog(pesan: String){
+            firebaseCrashlytics = Firebase.crashlytics
+            firebaseCrashlytics.setUserId("userTestingRML")
+            throw RuntimeException(pesan)
+        }
+
+
+
+
 
         @JvmStatic
         fun emulator(debugInfo: Long) {
@@ -41,12 +63,14 @@ class SecurityApp {
             pesan = "hook Detected"
             Log.d(TAG, pesan)
         }
+
         @JvmStatic
         fun filetamper(debugInfo: Long) {
             detection = true
             pesan = "File Tamper Detection"
             Log.d(TAG, pesan)
         }
+
         @JvmStatic
         fun apptamper(debugInfo: Long) {
             detection = true

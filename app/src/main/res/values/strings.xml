@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">Rml Demo Apps</string>
 
+    <string name="com.google.firebase.crashlytics.mapping_file_id">none</string>
+
     <string name="settings">Settings</string>
     <string name="browse">Browse</string>
     <string name="discover">Discover things of this world</string>

@@ -3,13 +3,15 @@
 #-addconfigurationdebugging
 
 -raspchecks apptamper
--raspchecks filetamper
+#-raspchecks filetamper
 -raspchecks hook
 -raspchecks emulator
 -raspchecks root
+#-raspchecks certificatetamper
 -raspcontinueon *
 
--raspfiletamperlist assets/games.json
+#-raspfiletamperlist assets/games.json
+
 
 -raspcallback emulator class com.rmldemo.guardsquare.security.SecurityApp {
     public static void emulator(long);
@@ -31,8 +33,8 @@
 #    public static void filetamper(long);
 #}
 
-
-
+-keepresources raw/**
+-keepresources raw/lottie2
 -encryptclasses class com.rmldemo.guardsquare.ui.fregment.home.HomeViewModel
 -keepclassmembers class com.rmldemo.guardsquare.data.models.news_by_category.News {
     <fields>;
@@ -44,9 +46,23 @@
     <fields>;
 }
 
+-keepclassmembers class com.google.firebase.perf.metrics.AppStartTrace {
+    <methods>;
+}
 
+-keepclassmembers class com.google.android.gms.dynamite.descriptors.com.google.android.gms.measurement.dynamite.ModuleDescriptor {
+    *** MODULE_ID;
+}
 
+-keepclassmembers class com.google.android.gms.dynamite.descriptors.com.google.android.gms.measurement.dynamite.ModuleDescriptor {
+    *** MODULE_VERSION;
+}
 
+-keepclassmembers class com.google.android.gms.dynamite.DynamiteModule$DynamiteLoaderClassLoader {
+    *** sClassLoader;
+}
 
-
+-keep class com.google.android.gms.measurement.internal.AppMeasurementDynamiteService
+-keep class com.google.android.gms.dynamite.descriptors.com.google.android.gms.measurement.dynamite.ModuleDescriptor
+-keep class com.google.firebase.remoteconfig.FirebaseRemoteConfig
 
