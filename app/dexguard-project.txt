@@ -4,7 +4,7 @@
 
 -raspchecks apptamper
 #-raspchecks filetamper
--raspchecks hook
+#-raspchecks hook
 -raspchecks emulator
 -raspchecks root
 #-raspchecks certificatetamper
@@ -21,9 +21,9 @@
     public static void root(long);
 }
 
--raspcallback hook class com.rmldemo.guardsquare.security.SecurityApp {
-    public static void hook(long);
-}
+#-raspcallback hook class com.rmldemo.guardsquare.security.SecurityApp {
+#    public static void hook(long);
+#}
 
 -raspcallback apptamper class com.rmldemo.guardsquare.security.SecurityApp {
     public static void apptamper(long);

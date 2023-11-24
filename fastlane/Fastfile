@@ -12,17 +12,42 @@ platform :android do
         copyapk()
         uploadtofirebaseappdistribution()
         appknoxaccesstoken()
+        uploadtofirebasetestlab()
     end
 
 #     Upload Without Appknox
     lane :releaseappwithoutuploadappknox do
         clean()
-            begin
-                buildapk()
-            rescue => exception
-                 slackdexguarderror(exception)
-            end
+        begin
+            buildapk()
+        rescue => exception
+            slackdexguarderror(exception)
+        end
         uploadtofirebaseappdistribution()
+        uploadtofirebasetestlab()
+    end
+
+#     Upload Without Firebase
+    lane :releaseappwithoutuploadfirebase do
+        clean()
+         begin
+            buildapk()
+         rescue => exception
+             slackdexguarderror(exception)
+         end
+          copyapk()
+          appknoxaccesstoken()
+    end
+
+#     Jenkins
+    lane :jenkins do
+        clean()
+         begin
+            buildapk()
+         rescue => exception
+            slackdexguarderror(exception)
+         end
+         copyapk()
     end
 
 #     Clean Project
@@ -47,7 +72,7 @@ platform :android do
         slack(
             message: "Lane failed with exception : #{exception}",
             success: false,
-            slack_url: "https://hooks.slack.com/services/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",
+            slack_url: "https://hooks.slack.com/services/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",
             payload: {
                     "Built by" => "Jenkins",
             },
@@ -60,7 +85,7 @@ platform :android do
         slack(
             message: "The application was successfully built and protected by DexGuard",
             success: true,
-            slack_url: "https://hooks.slack.com/services/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",
+            slack_url: "https://hooks.slack.com/services/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",
             payload: {
                 "Built by" => "Jenkins",
             },
@@ -90,7 +115,7 @@ platform :android do
               app: "1:954269003292:android:b4099e7352481e8e6239d9",
               firebase_cli_token: "1//0gt-XjFucD2qDCgYIARAAGBASNwF-L9IrXg1q10HqDfGeWS5J2f7NzFyYWHwvmBuy46cS1xFiClbPJ_pDzCYoKjxiXEZs6kytMDI",
               testers: "nikkirufiansya2@gmail.com, technicalrml2023@gmail.com",
-              release_notes: "App demo RML"
+               release_notes: "DexGuard Version 4.9.21"
         )
         slackfirebasedistributionappsuccess()
     end
@@ -100,7 +125,7 @@ platform :android do
         slack(
             message: "App successfully uploaded to Firebase App Distribution",
             success: true,
-            slack_url: "https://hooks.slack.com/services/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",
+            slack_url: "https://hooks.slack.com/services/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",
             default_payloads: [:test_result]
         )
     end
@@ -114,13 +139,13 @@ platform :android do
 
 #     Get Credential Appknox
     lane :appknoxwhoami do
-        sh("appknox whoami --access-token 156e23bde8e3506cc5fd1bc8ae49b9d2a2d689ab")
+        sh("/usr/local/bin/appknox whoami --access-token 156e23bde8e3506cc5fd1bc8ae49b9d2a2d689ab")
     end
 
 #     Upload Protected App to Appknox
     lane :uploadtoappknox do
         begin
-            sh("appknox upload /Users/rmltech/Documents/Appknox/Fastlane-App/app-release-protected.apk | xargs appknox cicheck --risk-threshold critical")
+            sh("/usr/local/bin/appknox upload /Users/rmltech/Documents/Appknox/Fastlane-App/app-release-protected.apk | xargs /usr/local/bin/appknox cicheck --risk-threshold critical")
             slackappknoxsuccess()
         rescue => exception
             slackappknoxfailed(exception)
@@ -132,7 +157,7 @@ platform :android do
         slack(
             message: "The application successfully uploaded to Appknox",
             success: true,
-            slack_url: "https://hooks.slack.com/services/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",
+            slack_url: "https://hooks.slack.com/services/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",
             default_payloads: [:test_result]
         )
     end
@@ -142,32 +167,60 @@ platform :android do
         slack(
             message: "The application uploaded successfully but there are findings: : #{exception}",
             success: false,
-            slack_url: "https://hooks.slack.com/services/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",
+            slack_url: "https://hooks.slack.com/services/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",
             default_payloads: [:test_result]
         )
     end
 
 #     Upload Application to Firebase Test Lab
-#     lane :uploadtofirebasetestlab do
-#         firebase_test_lab_android(
-#             project_id: "rml-apps-vsxr",
-#             gcloud_service_key_file: "fastlane/rml-apps-vsxr-a5e8f78c8654.json",
-#             type: "robo",
-#             devices: [
-#                 {
-#                     model: "Galaxy Note9",
-#                     version: "29",
-#                     locale: "en_US",
-#                     orientation: "portrait"
-#                 },
-#                 {
-#                     model: "Pixel2",
-#                     version: "28"
-#                 }
-#             ],
-#             app_apk: "/Users/rmltech/Documents/Appknox/Fastlane-App/app-release-protected.apk",
-#             console_log_file_name: "fastlane/console_output.log",
-#             timeout: "3m",
-#         )
-#     end
+    lane :uploadtofirebasetestlab do
+        begin
+            sh("/opt/homebrew/bin/gcloud firebase test android run --type robo --app /Users/rmltech/Documents/Appknox/Fastlane-App/app-release-protected.apk")
+            slacktfirebasetestlabsuccess
+        rescue => exception
+            slackfirebasetestlabfailed(exception)
+        end
+
+    end
+
+#     Run DexGuard Standalone
+    lane :dexguardstandalone do
+        sh("java -Ddexguard.license=/Users/rmltech/Documents/GuardSquare/DexGuard/Lisensi/baru/dexguard-license.txt -DANDROID_HOME=/Users/rmltech/Library/Android/sdk/platforms/android-34/android.jar -jar /Users/rmltech/Documents/GuardSquare/DexGuard/Versi/DexGuard-9.4.21/lib/dexguard.jar @/Users/rmltech/Documents/GuardSquare/DexGuard/dexguard-standalone.txt")
+    end
+
+#     Run DexGuard Standalone and Upload to Appknox
+    lane :dexguardstandaloneuploadtoappknpx do
+        begin
+            dexguardstandalone()
+            slackdexguardsuccess
+        rescue => exception
+            slackdexguarderror(exception)
+        end
+
+         begin
+            sh("export APPKNOX_ACCESS_TOKEN=156e23bde8e3506cc5fd1bc8ae49b9d2a2d689ab")
+            sh("/usr/local/bin/appknox upload /Users/rmltech/Documents/GuardSquare/Demo/Fastlane-DG-Standalone/app-release-protected.apk | xargs /usr/local/bin/appknox cicheck --risk-threshold critical")
+            slackappknoxsuccess()
+         rescue => exception
+            slackappknoxfailed(exception)
+         end
+    end
+
+     def slackfirebasetestlabfailed(exception)
+        slack(
+            message: "Application failed to upload to Firebase Test Lab",
+            success: false,
+            slack_url: "https://hooks.slack.com/services/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",
+            default_payloads: [:test_result]
+        )
+     end
+
+     def slacktfirebasetestlabsuccess
+        slack(
+            message: "The application successfully uploaded to Firebase Test Lab",
+            success: true,
+            slack_url: "https://hooks.slack.com/services/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",
+            default_payloads: [:test_result]
+        )
+     end
  end

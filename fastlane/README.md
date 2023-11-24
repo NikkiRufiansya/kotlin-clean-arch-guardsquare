@@ -31,6 +31,22 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
+### android releaseappwithoutuploadfirebase
+
+```sh
+[bundle exec] fastlane android releaseappwithoutuploadfirebase
+```
+
+
+
+### android jenkins
+
+```sh
+[bundle exec] fastlane android jenkins
+```
+
+
+
 ### android clean
 
 ```sh
@@ -91,6 +107,30 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ```sh
 [bundle exec] fastlane android uploadtoappknox
+```
+
+
+
+### android uploadtofirebasetestlab
+
+```sh
+[bundle exec] fastlane android uploadtofirebasetestlab
+```
+
+
+
+### android dexguardstandalone
+
+```sh
+[bundle exec] fastlane android dexguardstandalone
+```
+
+
+
+### android dexguardstandaloneuploadtoappknpx
+
+```sh
+[bundle exec] fastlane android dexguardstandaloneuploadtoappknpx
 ```
 
 
