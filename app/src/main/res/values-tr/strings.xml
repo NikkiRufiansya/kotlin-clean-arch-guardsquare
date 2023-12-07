@@ -27,6 +27,8 @@
     <string name="food">Yiyecek</string>
     <string name="science">Bilim</string>
     <string name="entertainment">Eğlence</string>
+    <string name="login">Login</string>
+    <string name="regsiter">Regsiter</string>
 
     <string-array name="category_name_list">
         <item>Genel</item>

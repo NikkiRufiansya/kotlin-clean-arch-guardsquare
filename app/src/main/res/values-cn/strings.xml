@@ -27,6 +27,8 @@
     <string name="food">食物</string>
     <string name="science">科学</string>
     <string name="entertainment">娱乐</string>
+    <string name="login">Login</string>
+    <string name="regsiter">Regsiter</string>
 
     <string-array name="category_name_list">
         <item>是常见的</item>

@@ -27,4 +27,7 @@
     <color name="text_large_color_night">#B8B8B8</color>
     <color name="text_small_color_night">#C1C6DF</color>
 
+    <color name="blue_costa">#BFDBFE</color>
+    <color name="dark_colors">#000113</color>
+
 </resources>

@@ -7,12 +7,12 @@ platform :android do
             begin
                 buildapk()
             rescue => exception
-                slackdexguarderror(exception)
+                #slackdexguarderror(exception)
             end
-        copyapk()
+        #copyapk()
         uploadtofirebaseappdistribution()
-        appknoxaccesstoken()
-        uploadtofirebasetestlab()
+        #appknoxaccesstoken()
+        #uploadtofirebasetestlab()
     end
 
 #     Upload Without Appknox
@@ -21,7 +21,7 @@ platform :android do
         begin
             buildapk()
         rescue => exception
-            slackdexguarderror(exception)
+            #slackdexguarderror(exception)
         end
         uploadtofirebaseappdistribution()
         uploadtofirebasetestlab()
@@ -33,7 +33,7 @@ platform :android do
          begin
             buildapk()
          rescue => exception
-             slackdexguarderror(exception)
+             #slackdexguarderror(exception)
          end
           copyapk()
           appknoxaccesstoken()
@@ -45,7 +45,7 @@ platform :android do
          begin
             buildapk()
          rescue => exception
-            slackdexguarderror(exception)
+            #slackdexguarderror(exception)
          end
          copyapk()
     end
@@ -64,7 +64,7 @@ platform :android do
           task: 'assemble',
           build_type: 'Release',
         )
-        slackdexguardsuccess
+        #slackdexguardsuccess
     end
 
 #     Slack Notification For DexGuard Failed Build
@@ -115,9 +115,9 @@ platform :android do
               app: "1:954269003292:android:b4099e7352481e8e6239d9",
               firebase_cli_token: "1//0gt-XjFucD2qDCgYIARAAGBASNwF-L9IrXg1q10HqDfGeWS5J2f7NzFyYWHwvmBuy46cS1xFiClbPJ_pDzCYoKjxiXEZs6kytMDI",
               testers: "nikkirufiansya2@gmail.com, technicalrml2023@gmail.com",
-               release_notes: "DexGuard Version 4.9.21"
+               release_notes: "dexguard 9.4.23 enable root for testing"
         )
-        slackfirebasedistributionappsuccess()
+        #slackfirebasedistributionappsuccess()
     end
 
 #     Slack Notification For Firebase App Distribution Success Upload
@@ -146,9 +146,9 @@ platform :android do
     lane :uploadtoappknox do
         begin
             sh("/usr/local/bin/appknox upload /Users/rmltech/Documents/Appknox/Fastlane-App/app-release-protected.apk | xargs /usr/local/bin/appknox cicheck --risk-threshold critical")
-            slackappknoxsuccess()
+            #slackappknoxsuccess()
         rescue => exception
-            slackappknoxfailed(exception)
+            #slackappknoxfailed(exception)
         end
     end
 
@@ -176,9 +176,9 @@ platform :android do
     lane :uploadtofirebasetestlab do
         begin
             sh("/opt/homebrew/bin/gcloud firebase test android run --type robo --app /Users/rmltech/Documents/Appknox/Fastlane-App/app-release-protected.apk")
-            slacktfirebasetestlabsuccess
+            #slacktfirebasetestlabsuccess
         rescue => exception
-            slackfirebasetestlabfailed(exception)
+            #slackfirebasetestlabfailed(exception)
         end
 
     end

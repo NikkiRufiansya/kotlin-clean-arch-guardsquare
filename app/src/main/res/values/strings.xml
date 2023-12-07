@@ -44,6 +44,8 @@
     <string name="food">Food</string>
     <string name="science">Science</string>
     <string name="entertainment">Entertainment</string>
+    <string name="login">Login</string>
+    <string name="regsiter">Regsiter</string>
 
     <string-array name="category_list" translatable="false">
         <item>General</item>

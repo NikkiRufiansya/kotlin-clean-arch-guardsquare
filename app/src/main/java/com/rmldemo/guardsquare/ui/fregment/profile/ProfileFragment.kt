@@ -17,6 +17,8 @@ import com.rmldemo.guardsquare.utils.Topics.appComponent
 import com.dolatkia.animatedThemeManager.AppTheme
 import com.dolatkia.animatedThemeManager.ThemeFragment
 import com.dolatkia.animatedThemeManager.ThemeManager
+import com.google.firebase.auth.FirebaseAuth
+import com.rmldemo.guardsquare.utils.SessionManager
 import javax.inject.Inject
 
 
@@ -24,6 +26,9 @@ class ProfileFragment : ThemeFragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
+
+    lateinit var sessionManager: SessionManager
+    lateinit var auth: FirebaseAuth
 
     @Inject
     lateinit var sPref: SharedPreferences
@@ -44,11 +49,17 @@ class ProfileFragment : ThemeFragment() {
         _binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
         appComponent.inject(this)
         (activity as MainView?)?.showBottomBar()
-
+        sessionManager = SessionManager(binding.root.context.applicationContext)
+        auth = FirebaseAuth.getInstance()
         setOnClickListeners()
 
         if (sPref.getString("mode", "") == "night") {
             binding.switchButton.isChecked = true
+        }
+
+        binding.logoutCard.setOnClickListener {
+            auth.signOut()
+            sessionManager.logoutUser()
         }
 
 

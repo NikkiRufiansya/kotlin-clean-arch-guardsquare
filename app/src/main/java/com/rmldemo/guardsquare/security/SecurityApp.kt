@@ -10,37 +10,49 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import com.rmldemo.guardsquare.ui.activity.WarningActivity
+import com.rmldemo.guardsquare.utils.SessionManager
 import java.lang.RuntimeException
 import kotlin.math.acos
 
 
 class SecurityApp {
 
+
     companion object {
 
         var detection: Boolean = false
         var pesan = ""
         val TAG = "SecurityApp"
-        lateinit var firebaseCrashlytics : FirebaseCrashlytics
+        lateinit var firebaseCrashlytics: FirebaseCrashlytics
+        lateinit var sessionManager: SessionManager
+        var appUserId = ""
+
+        @JvmStatic
+        fun threatCast(context: Context) {
+            sessionManager = SessionManager(context)
+            appUserId = sessionManager.getEmail()
+            //Toast.makeText(context, appUserId, Toast.LENGTH_SHORT).show()
+        }
+
 
         @JvmStatic
         fun notification(activity: Context) {
             if (detection == true) {
                 Toast.makeText(activity, pesan, Toast.LENGTH_SHORT).show()
+                sessionManager = SessionManager(activity)
+                appUserId = sessionManager.getEmail()
+                //Toast.makeText(activity, appUserId, Toast.LENGTH_SHORT).show()
                 //activity.startActivity(Intent(activity, WarningActivity::class.java))
                 uploadCrashlog(pesan)
                 android.os.Process.killProcess(android.os.Process.myPid())
             }
         }
 
-        fun uploadCrashlog(pesan: String){
+        fun uploadCrashlog(pesan: String) {
             firebaseCrashlytics = Firebase.crashlytics
             firebaseCrashlytics.setUserId("userTestingRML")
             throw RuntimeException(pesan)
         }
-
-
-
 
 
         @JvmStatic
@@ -78,6 +90,9 @@ class SecurityApp {
             Log.d(TAG, pesan)
         }
 
-
+        @JvmStatic
+        fun getAuid(): String {
+            return appUserId
+        }
     }
 }

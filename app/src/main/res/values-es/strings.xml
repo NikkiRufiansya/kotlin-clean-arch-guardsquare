@@ -27,6 +27,8 @@
     <string name="food">Comida</string>
     <string name="science">Ciencia</string>
     <string name="entertainment">Entretenimiento</string>
+    <string name="login">Login</string>
+    <string name="regsiter">Regsiter</string>
 
     <string-array name="category_name_list">
         <item>General</item>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config>
+        <domain includeSubdomains="true">api.thenewsapi.com</domain>
+        <pin-set expiration="2024-01-25">
+            <pin digest="SHA-256">8yRMuI+776uQJEYPLT4I6TjbpJcBiQWuc87xVhg+OcU=</pin>
+            <pin digest="SHA-256">hxqRlPTu1bMS/0DITB1SSu0vd4u/8l8TjPgfaAp63Gc=</pin>
+        </pin-set>
+    </domain-config>
+</network-security-config>

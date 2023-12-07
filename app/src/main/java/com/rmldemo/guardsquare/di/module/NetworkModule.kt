@@ -4,6 +4,7 @@ import android.content.Context
 import com.rmldemo.guardsquare.data.remote.ApiService
 import dagger.Module
 import dagger.Provides
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -37,7 +38,8 @@ class NetworkModule(var context: Context) {
     @Provides
     @Singleton
     fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
-        val okHttpClient = OkHttpClient.Builder()
+        val certificatePinner = CertificatePinner.Builder().add("api.thenewsapi.com", "sha256/8yRMuI+776uQJEYPLT4I6TjbpJcBiQWuc87xVhg+OcU=").build()
+        val okHttpClient = OkHttpClient.Builder().certificatePinner(certificatePinner)
         okHttpClient.addInterceptor(httpLoggingInterceptor)
         return okHttpClient.build()
     }

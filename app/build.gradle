@@ -18,7 +18,7 @@ android {
         applicationId "com.rmldemo.guardsquare"
         minSdk 21
         targetSdk 34
-        versionCode 40
+        versionCode 51
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -123,14 +123,21 @@ dependencies {
     //implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-auth-ktx")
+    //implementation("com.google.firebase:firebase-inappmessaging")
+    //implementation("com.google.firebase:firebase-inappmessaging-display")
 
+
+    implementation("com.intuit.sdp:sdp-android:1.1.0")
+    implementation("com.intuit.ssp:ssp-android:1.1.0")
 
 }
 
 
 
 dexguard {
-    path = "/Users/rmltech/Documents/GuardSqurare/DexGuard-9.4.21"
+    path = "/Users/rmltech/Documents/GuardSqurare/DexGuard-9.4.23"
     license = "../app/dexguard-license.txt"
     configurations {
         register("release") {

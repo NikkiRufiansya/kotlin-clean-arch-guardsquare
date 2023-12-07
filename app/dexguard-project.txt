@@ -4,11 +4,16 @@
 
 -raspchecks apptamper
 #-raspchecks filetamper
-#-raspchecks hook
+-raspchecks hook
 -raspchecks emulator
 -raspchecks root
 #-raspchecks certificatetamper
 -raspcontinueon *
+
+
+-printconfiguration config.txt
+
+
 
 #-raspfiletamperlist assets/games.json
 
@@ -21,21 +26,28 @@
     public static void root(long);
 }
 
-#-raspcallback hook class com.rmldemo.guardsquare.security.SecurityApp {
-#    public static void hook(long);
-#}
+-raspcallback hook class com.rmldemo.guardsquare.security.SecurityApp {
+    public static void hook(long);
+}
 
 -raspcallback apptamper class com.rmldemo.guardsquare.security.SecurityApp {
     public static void apptamper(long);
 }
 
+
 #-raspcallback filetamper class com.rmldemo.guardsquare.security.SecurityApp {
 #    public static void filetamper(long);
 #}
 
+-threatcastappuseridgetter class com.rmldemo.guardsquare.security.SecurityApp {
+    public static java.lang.String getAuid();
+}
+
+
 -keepresources raw/**
 -keepresources raw/lottie2
 -encryptclasses class com.rmldemo.guardsquare.ui.fregment.home.HomeViewModel
+-encryptclasses class com.rmldemo.guardsquare.di.module.NetworkModule
 -keepclassmembers class com.rmldemo.guardsquare.data.models.news_by_category.News {
     <fields>;
 }
@@ -62,7 +74,11 @@
     *** sClassLoader;
 }
 
+
+
+
 -keep class com.google.android.gms.measurement.internal.AppMeasurementDynamiteService
 -keep class com.google.android.gms.dynamite.descriptors.com.google.android.gms.measurement.dynamite.ModuleDescriptor
--keep class com.google.firebase.remoteconfig.FirebaseRemoteConfig
+-encryptclasses class com.google.firebase.remoteconfig.FirebaseRemoteConfig
 
+-threatcastapikey eyJ2ZXJzaW9uIjoxLCJrZXkiOiJlMWRhYjk2NTMwODUxOTY3MTUxZjM3NDA5YWY0ZjQxMzc0ZjFiMmIyOGU2OTkyZjkiLCJmbGFncyI6eyJoZWFydGJlYXRzIjp0cnVlfSwiZW5kcG9pbnQiOiJyYWRpdHlhbXVsaWFsZXN0YXJpLnRocmVhdGNhc3QuZ3VhcmRzcXVhcmUuY29tIiwiaW50ZWdyYXRpb25LZXkiOiJhYWZiOTdkNjQ5MDEyYmNiYzMxYzI4ZDA3OGRiODU3NGM5M2I5OTJiODZhMWM1ODJlYWM0MGU1YTkyOTJlNDIyIiwic2VjcmV0IjoiZjJkNzgwNmJhZDg0NWFjZTMyMmY1MmE1NTczNzFjNjc4NzE5Nzk3NTA5ZmVhYmFjMGM4OGJlNDY4ZDkyODBhNyJ9
