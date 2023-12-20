@@ -7,7 +7,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { url=uri("/Users/rmltech/Documents/GuardSqurare/DexGuard-9.4.23/lib") }
+        maven { url=uri("/Users/rmltech/Documents/GuardSquare/DexGuard-9.4.23/lib") }
     }
     dependencies {
         classpath("com.guardsquare:dexguard-gradle-plugin:9.4.23")

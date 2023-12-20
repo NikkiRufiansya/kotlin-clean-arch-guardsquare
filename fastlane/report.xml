@@ -5,52 +5,62 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000203">
+      <testcase classname="fastlane.lanes" name="00: default_platform" time="0.000178">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: Switch to android clean lane" time="9.8e-05">
+      <testcase classname="fastlane.lanes" name="01: Switch to android clean lane" time="0.000113">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: clean" time="3.64641">
+      <testcase classname="fastlane.lanes" name="02: clean" time="10.338706">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: Switch to android buildapk lane" time="0.000585">
+      <testcase classname="fastlane.lanes" name="03: Switch to android buildapk lane" time="0.000488">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: assembleRelease" time="206.470065">
+      <testcase classname="fastlane.lanes" name="04: assembleRelease" time="211.283305">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: Switch to android uploadtofirebaseappdistribution lane" time="0.001276">
+      <testcase classname="fastlane.lanes" name="05: Switch to android uploadtofirebaseappdistribution lane" time="0.001145">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="6: Switch to android increment_version lane" time="0.000281">
+      <testcase classname="fastlane.lanes" name="06: Switch to android increment_version lane" time="7.2e-05">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="7: firebase_app_distribution_get_latest_release" time="1.783925">
+      <testcase classname="fastlane.lanes" name="07: firebase_app_distribution_get_latest_release" time="1.947398">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="8: increment_version_code" time="0.03986">
+      <testcase classname="fastlane.lanes" name="08: increment_version_code" time="0.040965">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="9: firebase_app_distribution" time="21.248455">
+      <testcase classname="fastlane.lanes" name="09: firebase_app_distribution" time="36.270069">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="10: Switch to android uploadtoAppSweap lane" time="0.01551">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="11: guardsquare scan /Users/rmltech/AndroidStudioProjects/rml-demo-apps/app/build/outputs/apk/release/app-release-protected.apk" time="18.291587">
         
       </testcase>
     

@@ -23,6 +23,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
+### android uploadtoAppSweap
+
+```sh
+[bundle exec] fastlane android uploadtoAppSweap
+```
+
+
+
 ### android releaseappwithoutuploadappknox
 
 ```sh

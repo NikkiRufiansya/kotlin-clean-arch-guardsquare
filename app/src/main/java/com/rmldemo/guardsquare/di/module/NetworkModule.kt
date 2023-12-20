@@ -38,8 +38,10 @@ class NetworkModule(var context: Context) {
     @Provides
     @Singleton
     fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
-        val certificatePinner = CertificatePinner.Builder().add("api.thenewsapi.com", "sha256/8yRMuI+776uQJEYPLT4I6TjbpJcBiQWuc87xVhg+OcU=").build()
-        val okHttpClient = OkHttpClient.Builder().certificatePinner(certificatePinner)
+        val certificatePinner = CertificatePinner.Builder()
+            .add("api.thenewsapi.com", "sha256/8yRMuI+776uQJEYPLT4I6TjbpJcBiQWuc87xVhg+OcU=").build()
+        val okHttpClient = OkHttpClient.Builder()
+            .certificatePinner(certificatePinner)
         okHttpClient.addInterceptor(httpLoggingInterceptor)
         return okHttpClient.build()
     }

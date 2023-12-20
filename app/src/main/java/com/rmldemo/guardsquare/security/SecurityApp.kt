@@ -41,8 +41,6 @@ class SecurityApp {
                 Toast.makeText(activity, pesan, Toast.LENGTH_SHORT).show()
                 sessionManager = SessionManager(activity)
                 appUserId = sessionManager.getEmail()
-                //Toast.makeText(activity, appUserId, Toast.LENGTH_SHORT).show()
-                //activity.startActivity(Intent(activity, WarningActivity::class.java))
                 uploadCrashlog(pesan)
                 android.os.Process.killProcess(android.os.Process.myPid())
             }

@@ -1,6 +1,10 @@
 default_platform(:android)
 
 platform :android do
+
+before_all do
+    ENV["APPSWEEP_API_KEY"]="gs_appsweep_BQc20zl_ptXq7Tv5enXus4lR6FsPEQN4PFW0MsvR"
+  end
 #     Upload All
     lane :releaseapp do
         clean()
@@ -11,8 +15,14 @@ platform :android do
             end
         #copyapk()
         uploadtofirebaseappdistribution()
+        uploadtoAppSweap()
         #appknoxaccesstoken()
         #uploadtofirebasetestlab()
+    end
+
+    lane :uploadtoAppSweap do
+        #sh("export APPSWEEP_API_KEY=gs_appsweep_BQc20zl_ptXq7Tv5enXus4lR6FsPEQN4PFW0MsvR")
+        sh("guardsquare scan /Users/rmltech/AndroidStudioProjects/rml-demo-apps/app/build/outputs/apk/release/app-release-protected.apk")
     end
 
 #     Upload Without Appknox
@@ -67,31 +77,7 @@ platform :android do
         #slackdexguardsuccess
     end
 
-#     Slack Notification For DexGuard Failed Build
-    def slackdexguarderror (exception)
-        slack(
-            message: "Lane failed with exception : #{exception}",
-            success: false,
-            slack_url: "https://hooks.slack.com/services/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",
-            payload: {
-                    "Built by" => "Jenkins",
-            },
-            default_payloads: [:test_result]
-       )
-    end
 
-#     Slack Notification For DexGuard Success Build
-    def slackdexguardsuccess
-        slack(
-            message: "The application was successfully built and protected by DexGuard",
-            success: true,
-            slack_url: "https://hooks.slack.com/services/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",
-            payload: {
-                "Built by" => "Jenkins",
-            },
-            default_payloads: [:test_result]
-       )
-    end
 
 #     Copy Protected App for Upload to Appknox
     lane :copyapk do
@@ -120,15 +106,6 @@ platform :android do
         #slackfirebasedistributionappsuccess()
     end
 
-#     Slack Notification For Firebase App Distribution Success Upload
-    def slackfirebasedistributionappsuccess
-        slack(
-            message: "App successfully uploaded to Firebase App Distribution",
-            success: true,
-            slack_url: "https://hooks.slack.com/services/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",
-            default_payloads: [:test_result]
-        )
-    end
 
 #     Export Access Token Appknox
     lane :appknoxaccesstoken do
@@ -152,25 +129,7 @@ platform :android do
         end
     end
 
-#     Slack Notification For Appknox Success Upload
-    def slackappknoxsuccess
-        slack(
-            message: "The application successfully uploaded to Appknox",
-            success: true,
-            slack_url: "https://hooks.slack.com/services/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",
-            default_payloads: [:test_result]
-        )
-    end
 
-#     Slack Notification For Appknox Failed Upload
-    def slackappknoxfailed(exception)
-        slack(
-            message: "The application uploaded successfully but there are findings: : #{exception}",
-            success: false,
-            slack_url: "https://hooks.slack.com/services/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",
-            default_payloads: [:test_result]
-        )
-    end
 
 #     Upload Application to Firebase Test Lab
     lane :uploadtofirebasetestlab do
@@ -206,21 +165,4 @@ platform :android do
          end
     end
 
-     def slackfirebasetestlabfailed(exception)
-        slack(
-            message: "Application failed to upload to Firebase Test Lab",
-            success: false,
-            slack_url: "https://hooks.slack.com/services/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",
-            default_payloads: [:test_result]
-        )
-     end
-
-     def slacktfirebasetestlabsuccess
-        slack(
-            message: "The application successfully uploaded to Firebase Test Lab",
-            success: true,
-            slack_url: "https://hooks.slack.com/services/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",
-            default_payloads: [:test_result]
-        )
-     end
  end
